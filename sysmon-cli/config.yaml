@@ -1,0 +1,23 @@
+# SysMon CLI Configuration
+interval: 5  # seconds between checks
+
+alerts:
+  cpu_threshold: 80
+  memory_threshold: 85
+  disk_threshold: 90
+
+endpoints:
+  - https://google.com
+  - https://github.com
+
+logs:
+  files:
+    - /var/log/system.log
+  patterns:
+    - ERROR
+    - FATAL
+    - CRITICAL
+    - Exception
+
+dashboard:
+  port: 3847

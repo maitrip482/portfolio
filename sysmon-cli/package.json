@@ -1,0 +1,22 @@
+{
+  "name": "sysmon-cli",
+  "version": "1.0.0",
+  "description": "System monitoring CLI tool with live web dashboard — tracks CPU, memory, disk, health checks, and log errors",
+  "main": "index.js",
+  "bin": {
+    "sysmon": "./bin/sysmon.js"
+  },
+  "scripts": {
+    "start": "node bin/sysmon.js",
+    "dashboard": "node bin/sysmon.js --dashboard",
+    "test": "node test.js"
+  },
+  "keywords": ["monitoring", "cli", "system", "devops", "nodejs", "dashboard"],
+  "author": "Maitri Patel",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4",
+    "cli-table3": "^0.6.0",
+    "yaml": "^2.0.0"
+  }
+}
