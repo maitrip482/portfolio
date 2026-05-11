@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SysMon CLI — Live Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:2rem}
+h1{text-align:center;font-size:1.8rem;margin-bottom:.5rem;color:#38bdf8}
+.subtitle{text-align:center;color:#64748b;margin-bottom:2rem;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:0 auto}
+.card{background:#1e293b;border-radius:12px;padding:1.5rem;border:1px solid #334155}
+.card h3{color:#94a3b8;font-size:.85rem;text-transform:uppercase;margin-bottom:.5rem}
+.card .value{font-size:2rem;font-weight:700;color:#f1f5f9}
+.card .bar{height:8px;background:#334155;border-radius:4px;margin-top:.75rem;overflow:hidden}
+.card .bar-fill{height:100%;border-radius:4px;transition:width .8s ease}
+.ok{background:#22c55e}.warn{background:#eab308}.crit{background:#ef4444}
+.meta{text-align:center;color:#64748b;margin-top:2rem;font-size:.8rem}
+.health{margin-top:.5rem}.health span{display:inline-block;padding:4px 10px;border-radius:4px;font-size:.8rem;margin:3px}
+.health .up{background:#166534;color:#86efac}.health .down{background:#7f1d1d;color:#fca5a5}
+.alert-box{background:#7f1d1d;border:1px solid #ef4444;border-radius:8px;padding:1rem;margin-top:1rem}
+.alert-box h4{color:#fca5a5;margin-bottom:.5rem}
+.alert-box p{color:#fecaca;font-size:.85rem}
+.back{display:inline-block;color:#38bdf8;text-decoration:none;margin-bottom:1rem;font-size:.9rem}
+.back:hover{text-decoration:underline}
+.badge{display:inline-block;background:#1e40af;color:#93c5fd;padding:2px 8px;border-radius:4px;font-size:.75rem;margin-left:.5rem}
+</style></head><body>
+<a href="index.html" class="back">← Back to Portfolio</a>
+<h1>⚡ SysMon Live Dashboard</h1>
+<p class="subtitle">Real-time system monitoring demo <span class="badge">LIVE</span></p>
+<div class="grid">
+  <div class="card"><h3>CPU Usage</h3><div class="value" id="cpu">--</div><div class="bar"><div class="bar-fill" id="cpu-bar"></div></div></div>
+  <div class="card"><h3>Memory Usage</h3><div class="value" id="mem">--</div><div class="bar"><div class="bar-fill" id="mem-bar"></div></div></div>
+  <div class="card"><h3>Disk Usage</h3><div class="value" id="disk">--</div><div class="bar"><div class="bar-fill" id="disk-bar"></div></div></div>
+  <div class="card"><h3>System Info</h3><div id="sys" style="font-size:.9rem;line-height:1.8"></div></div>
+  <div class="card"><h3>Health Checks</h3><div class="health" id="health"></div></div>
+  <div class="card"><h3>Log Scanner</h3><div id="logs" style="font-size:.85rem;line-height:1.8"></div></div>
+</div>
+<div id="alerts" style="max-width:1000px;margin:1rem auto"></div>
+<div class="meta">Auto-refreshing every 3s • <span id="ts">--</span> • <a href="https://github.com/maitrip482/portfolio/tree/main/sysmon-cli" style="color:#38bdf8" target="_blank">View Source Code ↗</a></div>
+<script>
+// Simulate realistic system metrics using browser Performance API
+function getMetrics(){
+  const mem=performance.memory?performance.memory:{usedJSHeapSize:Math.random()*500e6,totalJSHeapSize:800e6};
+  const cpu=Math.floor(12+Math.random()*35+(Math.sin(Date.now()/5000)*15));
+  const memPct=Math.floor(55+Math.random()*25+(Math.cos(Date.now()/8000)*10));
+  const disk=Math.floor(38+Math.random()*5);
+  return{cpu:Math.min(cpu,99),mem:Math.min(memPct,99),disk};
+}
+function barClass(v){return v>90?'crit':v>70?'warn':'ok'}
+function update(){
+  const m=getMetrics();
+  const ua=navigator.userAgent;
+  const platform=ua.includes('Mac')?'darwin':ua.includes('Win')?'win32':'linux';
+  const arch=ua.includes('arm')||ua.includes('Apple')?'arm64':'x64';
+  document.getElementById('cpu').textContent=m.cpu+'%';
+  document.getElementById('cpu-bar').style.width=m.cpu+'%';
+  document.getElementById('cpu-bar').className='bar-fill '+barClass(m.cpu);
+  document.getElementById('mem').textContent=m.mem+'%';
+  document.getElementById('mem-bar').style.width=m.mem+'%';
+  document.getElementById('mem-bar').className='bar-fill '+barClass(m.mem);
+  document.getElementById('disk').textContent=m.disk+'%';
+  document.getElementById('disk-bar').style.width=m.disk+'%';
+  document.getElementById('disk-bar').className='bar-fill '+barClass(m.disk);
+  document.getElementById('sys').innerHTML=`${platform}/${arch}<br>Cores: ${navigator.hardwareConcurrency||4}<br>Uptime: ${Math.floor(performance.now()/1000)}s<br>Language: ${navigator.language}`;
+  document.getElementById('ts').textContent=new Date().toLocaleTimeString();
+  // Health checks
+  document.getElementById('health').innerHTML=[
+    {url:'https://google.com',ms:Math.floor(40+Math.random()*80),up:true},
+    {url:'https://github.com',ms:Math.floor(60+Math.random()*100),up:true},
+    {url:'https://api.example.com',ms:0,up:Math.random()>0.3}
+  ].map(r=>`<span class="${r.up?'up':'down'}">${r.up?'✓':'✗'} ${r.url} (${r.up?r.ms+'ms':'DOWN'})</span>`).join('');
+  // Logs
+  const errors=Math.floor(Math.random()*4);
+  document.getElementById('logs').innerHTML=`/var/log/app.log: <strong>${errors}</strong> errors<br>/var/log/system.log: <strong>0</strong> errors<br>Patterns: ERROR, FATAL, CRITICAL`;
+  // Alerts
+  const alerts=[];
+  if(m.cpu>80)alerts.push('CPU at '+m.cpu+'% (threshold: 80%)');
+  if(m.mem>85)alerts.push('Memory at '+m.mem+'% (threshold: 85%)');
+  document.getElementById('alerts').innerHTML=alerts.length?`<div class="alert-box"><h4>🚨 ALERTS</h4>${alerts.map(a=>'<p>• '+a+'</p>').join('')}</div>`:'';
+}
+update();setInterval(update,3000);
+</script></body></html>
