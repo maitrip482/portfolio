@@ -52,7 +52,7 @@ function drawParticles() {
 drawParticles();
 
 // Scroll reveal
-const revealEls = document.querySelectorAll('.skill-card, .project-card, .stat-card, .about-text');
+const revealEls = document.querySelectorAll('.skill-card, .project-card, .stat-card, .about-text, #blog .project-card');
 revealEls.forEach(el => el.classList.add('reveal'));
 
 const observer = new IntersectionObserver((entries) => {
