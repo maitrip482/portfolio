@@ -362,3 +362,38 @@ footer {
     .nav-links a { margin-left: 1rem; font-size: 0.85rem; }
     section { padding: 4rem 5%; }
 }
+
+/* FUN FACTS */
+.fun-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.fun-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s;
+}
+
+.fun-item:hover {
+    border-left-color: var(--accent2);
+    transform: translateX(5px);
+}
+
+.fun-emoji { font-size: 1.5rem; }
+
+.fun-text { color: var(--muted); font-size: 0.9rem; }
+
+.fun-text strong { color: var(--text); }
+
+@media (max-width: 768px) {
+    .fun-grid { grid-template-columns: 1fr; }
+}
