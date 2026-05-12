@@ -129,6 +129,86 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-header">
+                    <span class="project-tag">Serverless</span>
+                </div>
+                <h3>Country Subdomain Creator via CloudFront</h3>
+                <p>Lambda that auto-provisions CloudFront distributions for country-specific subdomains. Configures 4-origin setups (S3, ALB, API Gateway), 7 cache behaviors, ACM certificates, and Route 53 DNS — all programmatically via a single API call.</p>
+                <div class="project-tech">
+                    <span>Lambda</span><span>CloudFront</span><span>Route 53</span><span>ACM</span><span>Serverless</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Cost Optimization</span>
+                </div>
+                <h3>AWS Cost Reporter — Multi-Account Weekly Reports</h3>
+                <p>Serverless Lambda that generates weekly cost reports across all AWS Organization accounts. Fetches daily costs via Cost Explorer grouped by account/service/tags, compares week-over-week, highlights cost spikes, and sends HTML reports via SES + Slack.</p>
+                <div class="project-tech">
+                    <span>Cost Explorer</span><span>SES</span><span>Slack</span><span>Organizations</span><span>S3</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Cross-Account</span>
+                </div>
+                <h3>Resources Cost Report — Infrastructure Inventory</h3>
+                <p>Cross-account Lambda that inventories EC2, RDS, Elastic IPs, EBS, AMIs, VPCs, Global Accelerators, and Lightsail across 5 AWS accounts (9 regions) using STS AssumeRole. Combines resource inventory with Cost Explorer data into a single email report.</p>
+                <div class="project-tech">
+                    <span>STS</span><span>EC2</span><span>RDS</span><span>Cost Explorer</span><span>SES</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Data Sync</span>
+                </div>
+                <h3>AutoDMS — Automated Table Replication</h3>
+                <p>Automation tool that detects tables existing in MySQL (Aurora) but missing from Redshift, then automatically stops the DMS task, modifies table mappings to include the missing table, and resumes replication — eliminating manual DMS management.</p>
+                <div class="project-tech">
+                    <span>DMS</span><span>Aurora MySQL</span><span>Redshift</span><span>Node.js</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Monitoring</span>
+                </div>
+                <h3>DMS Table Sync Validator</h3>
+                <p>Daily Lambda that auto-discovers tables from DMS replication tasks, compares row counts between MySQL and Redshift, identifies missing tables and data mismatches, and sends SNS alerts with detailed reports. Catches replication drift before it impacts analytics.</p>
+                <div class="project-tech">
+                    <span>DMS</span><span>SNS</span><span>EventBridge</span><span>MySQL</span><span>Redshift</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Alerting</span>
+                </div>
+                <h3>Domain Expiry Alert System</h3>
+                <p>Serverless function monitoring 100+ domains across Route 53 and GoDaddy API. Detects upcoming expirations (skipping auto-renew), sends formatted HTML email alerts via SES to the operations team with concurrency-limited parallel processing.</p>
+                <div class="project-tech">
+                    <span>Route 53</span><span>GoDaddy API</span><span>SES</span><span>Lambda</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">Automation</span>
+                </div>
+                <h3>Lambda Version Retention Manager</h3>
+                <p>Monthly scheduled Lambda that cleans up old function versions across the organization. Keeps latest 10 versions per function, preserves alias-referenced versions, paginates through all versions — preventing storage bloat from 1,000+ Lambda functions.</p>
+                <div class="project-tech">
+                    <span>Lambda</span><span>EventBridge</span><span>AWS SDK v3</span><span>Cron</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-tag">IaC</span>
+                </div>
+                <h3>Terraform IAM Management — Production</h3>
+                <p>Production Terraform project managing all IAM users, groups, and policy attachments for the organization declaratively. Uses for_each with variable maps, handles group memberships and multi-policy attachments. Real infrastructure-as-code in production.</p>
+                <div class="project-tech">
+                    <span>Terraform</span><span>IAM</span><span>HCL</span><span>S3 Backend</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-header">
                     <span class="project-tag">CLI Tool</span>
                     <a href="demo.html" class="project-link" target="_blank">↗</a>
                 </div>
@@ -136,56 +216,6 @@
                 <p>Node.js CLI tool that monitors CPU, memory, and disk usage in real-time. Includes health checks for HTTP endpoints, log file error parsing, YAML config, threshold alerts, and a live web dashboard with Server-Sent Events.</p>
                 <div class="project-tech">
                     <span>Node.js</span><span>SSE</span><span>YAML</span><span>CLI</span><span>Monitoring</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-tag">Cost Optimization</span>
-                </div>
-                <h3>CloudWatch Events Optimization — Saved $12K/yr</h3>
-                <p>Identified 593M unnecessary CloudWatch Events from 1,025 Lambda functions costing $594/month. Audited unused Lambdas, disabled EventBridge integration, and optimized high-frequency functions. Reduced costs by 92%.</p>
-                <div class="project-tech">
-                    <span>CloudWatch</span><span>Lambda</span><span>EventBridge</span><span>Cost Explorer</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-tag">Automation</span>
-                </div>
-                <h3>RDS Cross-Account Snapshot Manager</h3>
-                <p>One-click Node.js tool that creates RDS Aurora snapshots, shares them cross-account, and restores in test environments. Includes progress tracking, automated naming, and configurable instance sizing.</p>
-                <div class="project-tech">
-                    <span>Node.js</span><span>RDS</span><span>Aurora</span><span>Cross-Account</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-tag">Serverless</span>
-                </div>
-                <h3>Country Subdomain Creator via CloudFront</h3>
-                <p>Lambda function that auto-provisions CloudFront distributions for country-specific subdomains. Configures multi-origin setups (S3, ALB, API Gateway), cache behaviors, and Route 53 DNS records programmatically.</p>
-                <div class="project-tech">
-                    <span>Lambda</span><span>CloudFront</span><span>Route 53</span><span>Serverless Framework</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-tag">Monitoring</span>
-                </div>
-                <h3>Domain Expiry Alert System</h3>
-                <p>Serverless function that monitors 100+ domains across Route 53 and GoDaddy, detects upcoming expirations, and sends automated email alerts via SES to the operations team.</p>
-                <div class="project-tech">
-                    <span>Lambda</span><span>Route 53</span><span>SES</span><span>GoDaddy API</span>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-tag">DevOps</span>
-                </div>
-                <h3>Lambda Auto-Tagging with EventBridge</h3>
-                <p>EventBridge rule that detects new Lambda function creation and automatically applies resource tags (owner, team, environment). Ensures tagging compliance across 1,000+ functions without manual intervention.</p>
-                <div class="project-tech">
-                    <span>EventBridge</span><span>Lambda</span><span>IAM</span><span>Tagging</span>
                 </div>
             </div>
         </div>
@@ -196,62 +226,62 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-tag">Cost Savings</span>
+                    <span class="project-tag">Cost Savings — $12K/yr</span>
                 </div>
                 <h3>How I Saved $12,000/Year by Optimizing CloudWatch Events</h3>
-                <p>Discovered 593 million unnecessary CloudWatch Events generated by 1,025 Lambda functions in production. Root cause analysis, optimization strategy, and implementation that reduced costs by 92%.</p>
+                <p>Discovered 593 million unnecessary CloudWatch Events generated by 1,025 Lambda functions costing $594/month. Identified root cause (automatic EventBridge publishing), audited unused functions, and implemented a 3-week optimization plan that reduced costs by 92%.</p>
                 <div class="project-tech">
-                    <span>CloudWatch</span><span>Lambda</span><span>Cost Optimization</span>
+                    <span>CloudWatch</span><span>Lambda</span><span>EventBridge</span><span>Cost Optimization</span>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-tag">Automation</span>
                 </div>
-                <h3>Automating RDS Cross-Account Snapshots with Node.js</h3>
-                <p>Built a one-click solution to create Aurora MySQL snapshots, share them across AWS accounts, and restore in test environments — reducing a 2-hour manual process to a single command.</p>
+                <h3>Automating DMS Table Sync: Stop → Modify → Resume</h3>
+                <p>Built a tool that eliminates manual DMS management. When new tables appear in MySQL but not Redshift, it automatically stops the replication task, injects the table into mapping rules, waits for readiness, and resumes — handling the entire lifecycle programmatically.</p>
                 <div class="project-tech">
-                    <span>RDS</span><span>Node.js</span><span>Aurora</span><span>AWS SDK</span>
+                    <span>DMS</span><span>Aurora</span><span>Redshift</span><span>Node.js</span>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-header">
                     <span class="project-tag">Infrastructure</span>
                 </div>
-                <h3>Auditing 1000+ CloudFront Distributions to Cut AWS Costs</h3>
-                <p>Wrote Node.js scripts to identify unused and low-traffic CloudFront distributions across multiple accounts. Generated cost analysis reports with regional pricing breakdowns and automated cleanup recommendations.</p>
+                <h3>Building a Multi-Account AWS Cost Visibility System</h3>
+                <p>Designed two complementary Lambda functions: one for weekly cost trend reports (account/service/tag breakdown with week-over-week comparison), another for cross-account resource inventory across 5 accounts and 9 regions using STS AssumeRole.</p>
                 <div class="project-tech">
-                    <span>CloudFront</span><span>Node.js</span><span>Cost Explorer</span><span>Reporting</span>
+                    <span>Cost Explorer</span><span>STS</span><span>Organizations</span><span>SES</span>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-tag">Monitoring</span>
+                    <span class="project-tag">Serverless</span>
                 </div>
-                <h3>Building a Multi-Provider Domain Expiry Alert System</h3>
-                <p>Created a serverless monitoring system that checks domain expirations across Route 53 and GoDaddy, then sends automated alerts via SES — preventing accidental domain lapses for 100+ production domains.</p>
+                <h3>Programmatic CloudFront Distribution Provisioning</h3>
+                <p>How I automated the creation of CloudFront distributions for 50+ country subdomains. Each distribution gets 4 origins, 7 cache behaviors, ACM certificates, and DNS records — all from a single Lambda invocation instead of hours of console clicking.</p>
                 <div class="project-tech">
-                    <span>Route 53</span><span>GoDaddy API</span><span>SES</span><span>Lambda</span>
+                    <span>CloudFront</span><span>Lambda</span><span>Route 53</span><span>ACM</span>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-tag">DevOps</span>
+                    <span class="project-tag">Data Integrity</span>
                 </div>
-                <h3>Auto-Tagging AWS Resources with EventBridge</h3>
-                <p>Implemented automatic resource tagging using EventBridge rules that detect new Lambda/EC2 creation events and apply compliance tags. Solved the "who owns this resource?" problem across a 1,000+ function environment.</p>
+                <h3>Monitoring MySQL-to-Redshift Replication Drift</h3>
+                <p>Built a daily validation system that auto-discovers tables from DMS tasks, compares row counts between MySQL and Redshift, identifies missing tables, and sends SNS alerts — catching replication issues before they corrupt analytics dashboards.</p>
                 <div class="project-tech">
-                    <span>EventBridge</span><span>Lambda</span><span>Compliance</span><span>Automation</span>
+                    <span>DMS</span><span>MySQL</span><span>Redshift</span><span>SNS</span>
                 </div>
             </div>
             <div class="project-card">
                 <div class="project-header">
-                    <span class="project-tag">Observability</span>
+                    <span class="project-tag">IaC</span>
                 </div>
-                <h3>Setting Up Instant Lambda Error Alerts with CloudWatch & SNS</h3>
-                <p>Deployed a monitoring stack (JS scripts + CloudFormation) that creates CloudWatch alarms for Lambda errors, throttles, and duration spikes — with instant SNS notifications to the team.</p>
+                <h3>Managing IAM at Scale with Terraform</h3>
+                <p>Migrated manual IAM user/group/policy management to Terraform. Using for_each with variable maps to declaratively manage all organization users, their group memberships, and policy attachments — making IAM changes reviewable and auditable.</p>
                 <div class="project-tech">
-                    <span>CloudWatch</span><span>SNS</span><span>CloudFormation</span><span>Alerting</span>
+                    <span>Terraform</span><span>IAM</span><span>Infrastructure as Code</span>
                 </div>
             </div>
         </div>
