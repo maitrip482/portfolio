@@ -368,17 +368,20 @@ footer {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: nowrap;
 }
 
 .hero-badge {
     width: 60px;
     height: 60px;
     object-fit: contain;
+    flex-shrink: 0;
     animation: fadeUp 0.6s ease 0.15s both;
 }
 
 @media (max-width: 768px) {
     .hero-badge { width: 45px; height: 45px; }
+    .hero-name-row { flex-wrap: nowrap; }
 }
 
 /* AWS CARD */
