@@ -363,6 +363,69 @@ footer {
     section { padding: 4rem 5%; }
 }
 
+/* CERTIFICATIONS */
+.cert-container {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+}
+
+.cert-badge img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.cert-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.cert-info p {
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.cert-desc {
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem !important;
+}
+
+@media (max-width: 768px) {
+    .cert-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* AWS CARD */
+.aws-card {
+    grid-column: 1 / -1;
+}
+
+.aws-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.aws-tags span {
+    background: rgba(255, 107, 53, 0.1);
+    color: var(--accent);
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
 /* FUN FACTS */
 .fun-grid {
     display: grid;
